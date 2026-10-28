@@ -125,8 +125,17 @@
   }
   function pick(o, keys) { for (var i = 0; i < keys.length; i++) if (o[keys[i]] != null) return o[keys[i]]; return null; }
 
+  // слова для кнопок в каждом разделе
+  var KINDS = {
+    'кружки':  { what: 'кружку',  buy: 'Хочу эту кружку',  like: 'Хочу похожую', sold: 'продана' },
+    'игрушки': { what: 'игрушку', buy: 'Хочу эту игрушку', like: 'Хочу похожую', sold: 'продана' },
+    'обвесы':  { what: 'обвес',   buy: 'Хочу этот обвес',  like: 'Хочу похожий',  sold: 'продан' }
+  };
+  function shelfOf(item) { var k = pick(item, ['раздел', 'section']); return KINDS[k] ? k : 'кружки'; }
+
   function setupCard(card, item) {
-    var name = pick(item, ['название', 'name']) || 'Кружка';
+    var kind = KINDS[shelfOf(item)];
+    var name = pick(item, ['название', 'name']) || 'Без названия';
     var price = pick(item, ['цена', 'price']);
     var details = pick(item, ['описание', 'details']) || [];
     var photos = pick(item, ['фото', 'photos']) || [];
@@ -149,20 +158,27 @@
 
     var priceEl = card.querySelector('[data-p="price"]');
     var cur = priceEl.querySelector('span');
-    priceEl.textContent = (sold ? 'продана' : rub(price) + ' ');
+    priceEl.textContent = (sold ? kind.sold : rub(price) + ' ');
     if (!sold) priceEl.appendChild(cur);
-    priceEl.style.fontSize = sold ? '24px' : '';
-    priceEl.style.color = sold ? '#8A7263' : '';
+    priceEl.style.fontSize = sold ? '24px' : '40px';
+    priceEl.style.color = sold ? '#8A7263' : '#3A2A22';
 
     var buy = card.querySelector('[data-p="buy"]');
-    buy.textContent = sold ? 'Хочу похожую' : 'Хочу эту кружку';
+    buy.textContent = sold ? kind.like : kind.buy;
     buy.href = tgLink(sold
-      ? 'Здравствуйте! Хочу кружку, похожую на «' + name + '».'
+      ? 'Здравствуйте! Хочу ' + kind.what + ' как «' + name + '».'
       : 'Здравствуйте! Хочу «' + name + '»' + (price ? ' за ' + rub(price).replace(/ /g, ' ') + ' ₽' : '') + '.');
 
     var main = card.querySelector('[data-p="photo"]');
     var thumbs = card.querySelector('[data-p="thumbs"]');
     if (photos.length) { main.src = photos[0].src; main.alt = photos[0].alt; }
+    // фото любой формы видно целиком: рамка подстраивается под первое фото
+    main.style.objectFit = 'contain';
+    function fit() {
+      var r = main.naturalWidth / main.naturalHeight;
+      if (r) main.style.aspectRatio = String(Math.min(4 / 3, Math.max(9 / 16, r)));
+    }
+    if (main.complete && main.naturalWidth) fit(); else main.addEventListener('load', fit, { once: true });
     var proto = thumbs.querySelector('button');
     thumbs.textContent = '';
     if (photos.length < 2) { thumbs.style.display = 'none'; return; }
@@ -194,20 +210,32 @@
       'фото': Array.prototype.map.call(tpl.querySelectorAll('[data-p="thumbs"] button'), function (b) { return { 'файл': b.querySelector('img').getAttribute('src'), 'подпись': b.getAttribute('aria-label') }; })
     });
     var blank = tpl.cloneNode(true);
+    Array.prototype.forEach.call(blank.querySelectorAll('.sticker'), function (st) { st.remove(); });
     fetch('products.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (list) {
-        if (!Array.isArray(list) || !list.length) return;
+        if (!Array.isArray(list)) return;
+        // кружки — по образцу первой карточки, игрушки и обвесы — в свои разделы ниже
+        var mugs = list.filter(function (it) { return shelfOf(it) === 'кружки'; });
+        if (list.length && !mugs.length) tpl.style.display = 'none';
         var after = tpl;
-        list.forEach(function (item, i) {
+        mugs.forEach(function (item, i) {
           var card = i ? blank.cloneNode(true) : tpl;
           if (i) {
             card.style.marginTop = '40px';
-            card.querySelectorAll('.sticker').forEach(function (st) { st.remove(); });
             after.parentNode.insertBefore(card, after.nextSibling);
             after = card;
           }
           setupCard(card, item);
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-shelf]'), function (sec) {
+          var box = sec.querySelector('[data-p="list"]');
+          list.filter(function (it) { return shelfOf(it) === sec.getAttribute('data-shelf'); }).forEach(function (item) {
+            var card = blank.cloneNode(true);
+            box.appendChild(card);
+            setupCard(card, item);
+          });
+          if (box.children.length) box.nextElementSibling.style.marginTop = '48px';
         });
       })
       .catch(function () { /* оставляем карточку как есть */ });

@@ -68,6 +68,11 @@ header,section,footer,#contacts{scroll-margin-top:68px}
 .duo-sub{margin:8px 0 0;font-size:15px;line-height:1.5;color:#6B574B}
 .duo-link{text-decoration:underline;text-underline-offset:3px;color:#9C5B4B}
 a.duo-card:hover .duo-frame{border-color:#9C7A3C}
+.shelf{padding:24px 16px 80px}
+.shelf-head{margin-bottom:40px}
+.shelf [data-p=card]+[data-p=card]{margin-top:40px!important}
+.duo-one{grid-template-columns:minmax(0,280px)}
+.shelf [data-p=list]:empty+.duo-one{margin-top:0}
 .sticker{position:absolute;pointer-events:none;user-select:none;height:auto}
 .btn{display:inline-flex;align-items:center;min-height:52px;padding:0 30px;font-family:'Forum',Georgia,serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .25s ease,box-shadow .25s ease}
 .btn:hover{opacity:.88}
@@ -107,7 +112,8 @@ header,section,footer,#contacts{scroll-margin-top:60px}
 .brand{display:none}
 .topbar-in{padding:0 12px}
 .topbar-in{justify-content:center}
-.links{gap:18px;font-size:13px;letter-spacing:.07em}
+.links{gap:10px;font-size:12.5px;letter-spacing:.04em;flex:1;justify-content:space-between}
+.links a[href="#about"]{display:none}
 .pearls-l{left:3%;width:110px}.pearls-r{right:3%;width:96px}
 .sky-3{display:none}
 .crib{height:134px}
