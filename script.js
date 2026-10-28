@@ -123,6 +123,13 @@
     var v = Number(String(n).replace(/[^\d]/g, ''));
     return v ? v.toLocaleString('ru-RU').replace(/\s/g, ' ') : String(n);
   }
+  // неразрывные пробелы: предлоги и числа не отрываются от следующего слова
+  var SHORT = /(^|[\s(«"\u00a0])(а|в|во|и|к|ко|о|об|с|со|у|я|на|за|по|до|из|от|не|ни|но|для|без|при|над|под|про|что|как|или|это|мой|моя|моё|ещё|уже|около) (?=\S)/gi;
+  function typo(t) {
+    t = String(t);
+    for (var k = 0; k < 3; k++) t = t.replace(SHORT, '$1$2\u00a0');
+    return t.replace(/(\d) (?=\S)/g, '$1\u00a0').replace(/ (—|–) /g, '\u00a0$1 ');
+  }
   function pick(o, keys) { for (var i = 0; i < keys.length; i++) if (o[keys[i]] != null) return o[keys[i]]; return null; }
 
   // слова для кнопок в каждом разделе
@@ -145,7 +152,7 @@
     });
 
     var nameEl = card.querySelector('[data-p="name"]');
-    nameEl.textContent = name.replace(/ (с|и|в|на) /g, ' $1 ');
+    nameEl.textContent = typo(name);
 
     var det = card.querySelector('[data-p="details"]');
     var dot = det.querySelector('span[aria-hidden]');
@@ -153,7 +160,7 @@
     if (typeof details === 'string') details = details.split(/\s*[,·]\s*/);
     details.forEach(function (d, i) {
       if (i) det.appendChild(dot.cloneNode(true));
-      det.appendChild(document.createTextNode(d));
+      det.appendChild(document.createTextNode(typo(d)));
     });
 
     var priceEl = card.querySelector('[data-p="price"]');

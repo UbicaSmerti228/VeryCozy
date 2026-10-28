@@ -54,10 +54,14 @@ header,section,footer,#contacts{scroll-margin-top:68px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .ship{grid-column:2}
 /* Две карточки под кружкой: на ПК рядом, на телефоне компактными строками */
+.nw{white-space:nowrap}
+h1,h2,h3,.duo-title,.custom-title{text-wrap:balance}
+p,li,.duo-sub,.custom-sub{text-wrap:pretty}
 .duo{display:grid;grid-template-columns:minmax(0,280px) minmax(0,360px);align-items:center;justify-content:center;gap:40px 48px;margin-top:64px}
 .duo-card{display:flex;flex-direction:column;align-items:center;text-align:center;color:#3A2A22;text-decoration:none}
 .duo-frame{width:100%;aspect-ratio:1 / 1;border:1.5px dashed #C5B286;box-sizing:border-box;background:#E6EBF3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .duo-frame img{width:84px;height:auto}
+.duo-frame img.art{width:auto;height:110px}
 .duo-tag{font-family:'Forum',Georgia,serif;font-size:20px;color:#6B574B}
 .duo-text{display:flex;flex-direction:column;align-items:center}
 .duo-title{margin:20px 0 0;font-family:'Forum',Georgia,serif;font-weight:400;font-size:28px;line-height:1.15;color:#3A2A22}
@@ -68,14 +72,18 @@ a.duo-card:hover .duo-frame{border-color:#9C7A3C}
 .shelf-head{margin-bottom:40px}
 .shelf [data-p=card]+[data-p=card]{margin-top:40px!important}
 .duo-one{grid-template-columns:minmax(0,280px)}
-.custom-card{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto auto;column-gap:48px;align-items:center;max-width:1000px;margin:56px auto 0;padding:clamp(18px,3vw,36px);box-sizing:border-box;background:#FFFFFF;border:1px solid #DCE2EC;color:#3A2A22;text-decoration:none}
-.custom-frame{grid-row:1 / span 3;width:100%;aspect-ratio:1 / 1;box-sizing:border-box;padding:10px;border:6px double #B8924F;background:#F2F4F8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-clip:padding-box}
+.custom-card{position:relative;display:grid;grid-template-columns:240px minmax(0,1fr);grid-template-rows:auto auto auto auto;column-gap:48px;align-items:center;max-width:1000px;margin:56px auto 0;padding:clamp(18px,3vw,36px);box-sizing:border-box;background:#FFFFFF;border:1px solid #DCE2EC;color:#3A2A22;text-decoration:none}
+.custom-frame{grid-row:1 / span 4;width:100%;aspect-ratio:1 / 1;box-sizing:border-box;padding:10px;border:6px double #B8924F;background:#F2F4F8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background-clip:padding-box}
 .custom-frame img{width:118px;height:auto;transition:transform .35s ease}
 .custom-frame .duo-tag{font-size:21px}
 .custom-head{display:flex;flex-direction:column;align-self:end}
+.custom-head,.custom-sub,.custom-note,.custom-btn{grid-column:2}
 .custom-kicker{font-family:'Forum',Georgia,serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#8A7263}
 .custom-title{margin-top:8px;font-family:'Forum',Georgia,serif;font-size:clamp(32px,3.8vw,46px);line-height:1.05}
 .custom-sub{margin-top:16px;padding-top:16px;border-top:1.5px dashed #CFC3A3;font-size:17px;line-height:1.5;color:#5C4A40;max-width:520px}
+.custom-note{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:12px;font-family:'Forum',Georgia,serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#8A7263}
+.custom-note .dot{width:5px;height:5px;border-radius:50%;background:#B8924F}
+.custom-note span{white-space:nowrap}
 .custom-btn{align-self:start;justify-self:start;margin-top:22px;background:#3A2A22;color:#F2F4F8}
 .custom-card:hover .custom-frame img{transform:rotate(-6deg) translateY(-3px)}
 .custom-card:hover .custom-btn{opacity:.88}
@@ -138,10 +146,12 @@ header,section,footer,#contacts{scroll-margin-top:60px}
 .custom-kicker{font-size:11px;letter-spacing:.1em}
 .custom-title{margin-top:4px;font-size:25px}
 .custom-sub{grid-column:1 / -1;margin-top:14px;padding-top:12px;font-size:15px}
+.custom-note{grid-column:1 / -1;font-size:12px;letter-spacing:.1em;margin-top:10px}
 .custom-btn{grid-column:1 / -1;justify-self:stretch;justify-content:center;margin-top:16px;font-size:15px}
 .duo-card{flex-direction:row;align-items:center;text-align:left;gap:16px;background:#FFFFFF;border:1px solid #DCE2EC;padding:12px}
 .duo-frame{width:104px;flex:none;gap:4px}
 .duo-frame img{width:52px}
+.duo-frame img.art{width:auto;height:64px}
 .duo-tag{font-size:13px}
 .duo-text{align-items:flex-start}
 .duo-title{margin:0;font-size:22px}
