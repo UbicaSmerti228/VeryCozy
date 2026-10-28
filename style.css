@@ -1,0 +1,108 @@
+body{margin:0;background:#F2F4F8;overflow-x:hidden}
+a{color:#7A4E3A}a:hover{color:#4F3022}
+.hero{--bar:0px;position:relative;overflow:hidden;background:#B9C9DF url(assets/sky.webp) center 30%/cover no-repeat}
+header,section,footer,#contacts{scroll-margin-top:68px}
+.decor{position:absolute;pointer-events:none;user-select:none;height:auto;z-index:1}
+.curtain-l{left:0;top:var(--bar);width:clamp(58px,15vw,240px)}
+.curtain-r{right:0;top:var(--bar);width:clamp(58px,15vw,240px)}
+.pearls-l{left:15%;top:calc(var(--bar) - 6px);width:clamp(140px,21vw,320px);opacity:.95;transform-origin:50% 0;animation:sway-soft 7s ease-in-out infinite alternate}
+.pearls-r{right:14%;top:calc(var(--bar) - 6px);width:clamp(120px,18vw,280px);opacity:.95;transform-origin:50% 0;animation:sway-soft 8s ease-in-out infinite alternate-reverse}
+.cloud-l{left:-4%;bottom:40px;width:clamp(260px,36vw,560px);animation:drift 18s ease-in-out infinite alternate}
+.cloud-r{right:-5%;bottom:10px;width:clamp(280px,38vw,600px);animation:drift 22s ease-in-out infinite alternate-reverse}
+.scallop,.scallop-top{--tw:480px;--th:84px;position:absolute;left:0;right:0;height:var(--th);z-index:2;overflow:hidden;pointer-events:none}
+.scallop{bottom:-1px}
+.scallop-top{top:-1px;transform:scaleY(-1)}
+/* край-облако в стиле гравюры: выпуклости разного размера, контур и штриховка; медленно плывёт */
+.scallop::before,.scallop-top::before{content:"";position:absolute;top:0;bottom:0;left:0;width:calc(100% + var(--tw));background:url(assets/cloud-edge.svg) repeat-x 0 100% / var(--tw) var(--th);animation:edge-drift 70s linear infinite}
+.scallop-top::before{animation-direction:reverse;animation-duration:90s}
+@keyframes edge-drift{to{transform:translateX(calc(var(--tw) * -1))}}
+.topbar{position:sticky;top:0;z-index:900;height:52px;background:#F2F4F8;border-bottom:1.5px solid #B8924F;box-shadow:0 3px 0 -1.5px rgba(184,146,79,.35)}
+.topbar-in{max-width:1180px;height:100%;margin:0 auto;padding:0 20px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:inline-flex;align-items:center;min-height:44px;font-family:'Forum',Georgia,serif;font-size:22px;letter-spacing:.06em;color:#3A2A22;text-decoration:none;white-space:nowrap}
+.links{display:flex;gap:30px;overflow-x:auto;scrollbar-width:none;font-family:'Forum',Georgia,serif;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.links::-webkit-scrollbar{display:none}
+.links a{color:#3A2A22;text-decoration:none;white-space:nowrap;padding:14px 0}
+
+/* Подвесная игрушка-мобиль: обруч на нитях, подвески идут по кругу */
+.crib{position:relative;z-index:3;height:226px}
+.crib-inner{position:absolute;left:50%;top:0;width:0;height:0;transform-origin:0 0}
+.rig{position:absolute;left:0;top:0;transform-origin:0 22px;animation:rock 9s ease-in-out infinite alternate}
+.crib-cord{position:absolute;left:-.75px;top:0;width:1.5px;height:22px;background:#9C7A3C}
+.hoop-front{z-index:40}
+.hoop{position:absolute;left:-234px;top:0;width:468px;height:93px;overflow:visible}
+.orb{position:absolute;left:0;top:72px;width:0;height:0;z-index:10;animation:orbit 30s linear infinite;animation-delay:var(--phase);will-change:transform,opacity}
+.kick{position:absolute;left:0;top:0;transform-origin:0 0;transform:rotate(calc(var(--kick, 0deg) * var(--kf)))}
+.swing{position:absolute;left:0;top:0;transform-origin:0 0;animation:swing var(--t) ease-in-out infinite alternate;animation-delay:var(--d)}
+.thread{position:absolute;left:-.6px;top:0;width:1.2px;height:calc(var(--drop) + 7px);background:rgba(126,98,48,.75)}
+.charm{position:absolute;z-index:1;top:calc(var(--drop) - var(--w) * var(--ratio) * var(--ay));left:calc(var(--w) * var(--ax) * -1);width:var(--w)}
+.charm img{display:block;width:100%;height:auto}
+@keyframes orbit{0.000%{transform:translate(0.0px,15.0px) scale(1.000);opacity:1.000}2.083%{transform:translate(30.0px,14.9px) scale(0.999);opacity:0.999}4.167%{transform:translate(59.5px,14.5px) scale(0.997);opacity:0.998}6.250%{transform:translate(88.0px,13.9px) scale(0.992);opacity:0.995}8.333%{transform:translate(115.0px,13.0px) scale(0.987);opacity:0.991}10.417%{transform:translate(140.0px,11.9px) scale(0.979);opacity:0.986}12.500%{transform:translate(162.6px,10.6px) scale(0.971);opacity:0.979}14.583%{transform:translate(182.5px,9.1px) scale(0.961);opacity:0.973}16.667%{transform:translate(199.2px,7.5px) scale(0.950);opacity:0.965}18.750%{transform:translate(212.5px,5.7px) scale(0.938);opacity:0.957}20.833%{transform:translate(222.2px,3.9px) scale(0.926);opacity:0.948}22.917%{transform:translate(228.0px,2.0px) scale(0.913);opacity:0.939}25.000%{transform:translate(230.0px,0.0px) scale(0.900);opacity:0.930}27.083%{transform:translate(228.0px,-2.0px) scale(0.887);opacity:0.921}29.167%{transform:translate(222.2px,-3.9px) scale(0.874);opacity:0.912}31.250%{transform:translate(212.5px,-5.7px) scale(0.862);opacity:0.903}33.333%{transform:translate(199.2px,-7.5px) scale(0.850);opacity:0.895}35.417%{transform:translate(182.5px,-9.1px) scale(0.839);opacity:0.887}37.500%{transform:translate(162.6px,-10.6px) scale(0.829);opacity:0.881}39.583%{transform:translate(140.0px,-11.9px) scale(0.821);opacity:0.874}41.667%{transform:translate(115.0px,-13.0px) scale(0.813);opacity:0.869}43.750%{transform:translate(88.0px,-13.9px) scale(0.808);opacity:0.865}45.833%{transform:translate(59.5px,-14.5px) scale(0.803);opacity:0.862}47.917%{transform:translate(30.0px,-14.9px) scale(0.801);opacity:0.861}50.000%{transform:translate(0.0px,-15.0px) scale(0.800);opacity:0.860}52.083%{transform:translate(-30.0px,-14.9px) scale(0.801);opacity:0.861}54.167%{transform:translate(-59.5px,-14.5px) scale(0.803);opacity:0.862}56.250%{transform:translate(-88.0px,-13.9px) scale(0.808);opacity:0.865}58.333%{transform:translate(-115.0px,-13.0px) scale(0.813);opacity:0.869}60.417%{transform:translate(-140.0px,-11.9px) scale(0.821);opacity:0.874}62.500%{transform:translate(-162.6px,-10.6px) scale(0.829);opacity:0.881}64.583%{transform:translate(-182.5px,-9.1px) scale(0.839);opacity:0.887}66.667%{transform:translate(-199.2px,-7.5px) scale(0.850);opacity:0.895}68.750%{transform:translate(-212.5px,-5.7px) scale(0.862);opacity:0.903}70.833%{transform:translate(-222.2px,-3.9px) scale(0.874);opacity:0.912}72.917%{transform:translate(-228.0px,-2.0px) scale(0.887);opacity:0.921}75.000%{transform:translate(-230.0px,-0.0px) scale(0.900);opacity:0.930}77.083%{transform:translate(-228.0px,2.0px) scale(0.913);opacity:0.939}79.167%{transform:translate(-222.2px,3.9px) scale(0.926);opacity:0.948}81.250%{transform:translate(-212.5px,5.7px) scale(0.938);opacity:0.957}83.333%{transform:translate(-199.2px,7.5px) scale(0.950);opacity:0.965}85.417%{transform:translate(-182.5px,9.1px) scale(0.961);opacity:0.973}87.500%{transform:translate(-162.6px,10.6px) scale(0.971);opacity:0.979}89.583%{transform:translate(-140.0px,11.9px) scale(0.979);opacity:0.986}91.667%{transform:translate(-115.0px,13.0px) scale(0.987);opacity:0.991}93.750%{transform:translate(-88.0px,13.9px) scale(0.992);opacity:0.995}95.833%{transform:translate(-59.5px,14.5px) scale(0.997);opacity:0.998}97.917%{transform:translate(-30.0px,14.9px) scale(0.999);opacity:0.999}100.000%{transform:translate(-0.0px,15.0px) scale(1.000);opacity:1.000}}
+/* Облака: расходятся при прокрутке шапки, плывут по небу, сходятся в подвале */
+.part-l{translate:calc(var(--part, 0) * -38vw) calc(var(--part, 0) * -30px)}
+.part-r{translate:calc(var(--part, 0) * 38vw) calc(var(--part, 0) * -30px)}
+.gather-l{translate:calc((1 - var(--gather, 1)) * -45vw) 0}
+.gather-r{translate:calc((1 - var(--gather, 1)) * 45vw) 0}
+.sky-cloud{position:absolute;left:0;z-index:1;pointer-events:none;height:auto;opacity:.55;animation:cross linear infinite}
+@keyframes cross{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.logo{display:block;width:100%;max-width:470px;height:auto;margin:-8px auto 0;position:relative;z-index:2}
+.twinkle{animation:twinkle 3.2s ease-in-out infinite alternate}
+
+.wc-title{margin:0;font-family:'Pangolin','Comic Sans MS',cursive;font-weight:400;line-height:1.08;filter:url(#wc)}
+.wc-line{display:flex;flex-wrap:wrap;column-gap:.32em}
+.wc-word{display:inline-flex;white-space:nowrap}
+.wc-letter{display:inline-block}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.ship{grid-column:2}
+.sticker{position:absolute;pointer-events:none;user-select:none;height:auto}
+.btn{display:inline-flex;align-items:center;min-height:52px;padding:0 30px;font-family:'Forum',Georgia,serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .25s ease,box-shadow .25s ease}
+.btn:hover{opacity:.88}
+.angel-float{animation:float 5s ease-in-out infinite alternate}
+
+@keyframes rock{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+@keyframes swing{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@keyframes sway-soft{from{transform:rotate(-1.4deg)}to{transform:rotate(1.4deg)}}
+@keyframes curtain{from{transform:skewX(0deg)}to{transform:skewX(1.2deg)}}
+@keyframes drift{from{transform:translateX(-16px)}to{transform:translateX(16px)}}
+@keyframes float{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@keyframes twinkle{from{transform:scale(.82) rotate(-8deg);opacity:.65}to{transform:scale(1.08) rotate(8deg);opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}to{opacity:1;transform:none}}
+
+
+/* Переход по меню: облачное полотно спускается сверху, закрывает экран и уходит вниз.
+   Двигается один слой, только transform — без перерисовки страницы */
+/* Блок «Лепит Леся»: буквы проявляются по одной, волна рисуется кистью, текст всплывает */
+@keyframes ink{to{opacity:1;translate:0 0;scale:1}}
+@keyframes brush{to{clip-path:inset(0 0 0 0)}}
+@keyframes fadeup{to{opacity:1;translate:0 0}}
+@keyframes grow{to{scale:1}}
+@media (prefers-reduced-motion: no-preference){
+.paint .wc-letter{opacity:0;translate:0 16px;scale:.55}
+.paint.in .wc-letter{animation:ink .55s cubic-bezier(.2,.9,.3,1.35) forwards;animation-delay:calc(var(--i) * 60ms)}
+.paint .brush{clip-path:inset(0 100% 0 0)}
+.paint.in .brush{animation:brush .7s cubic-bezier(.4,0,.2,1) .6s forwards}
+.paint .fade-up{opacity:0;translate:0 18px}
+.paint.in .fade-up{animation:fadeup .75s ease-out forwards;animation-delay:var(--fd,.4s)}
+.paint .grow{scale:0}
+.paint.in .grow{animation:grow .8s cubic-bezier(.2,.9,.3,1.25) .9s forwards}
+}
+@media (max-width:760px){
+.topbar{height:48px}
+header,section,footer,#contacts{scroll-margin-top:60px}
+.brand{display:none}
+.topbar-in{padding:0 12px}
+.topbar-in{justify-content:center}
+.links{gap:18px;font-size:13px;letter-spacing:.07em}
+.pearls-l{left:3%;width:110px}.pearls-r{right:3%;width:96px}
+.sky-3{display:none}
+.crib{height:134px}
+.crib-inner{transform:scale(.56)}
+.sky-cloud{opacity:.32}
+.cloud-l{bottom:120px;opacity:.9}.cloud-r{bottom:60px;opacity:.9}
+.sticker-hide-sm{display:none}
+.ship{grid-column:1 / -1}
+.scallop,.scallop-top{--tw:340px;--th:60px}
+}
+@media (prefers-reduced-motion: reduce){
+*{animation:none !important;transition:none !important}
+}
