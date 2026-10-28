@@ -235,7 +235,8 @@
             box.appendChild(card);
             setupCard(card, item);
           });
-          if (box.children.length) box.nextElementSibling.style.marginTop = '48px';
+          // окошко «в процессе» — только пока в разделе ничего нет
+          box.nextElementSibling.style.display = box.children.length ? 'none' : '';
         });
       })
       .catch(function () { /* оставляем карточку как есть */ });
