@@ -54,7 +54,11 @@ header,section,footer,#contacts{scroll-margin-top:68px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .ship{grid-column:2}
 /* Две карточки под кружкой: на ПК рядом, на телефоне компактными строками */
-.duo{display:grid;grid-template-columns:repeat(2,minmax(0,300px));justify-content:center;gap:40px 48px;margin-top:64px}
+.duo{display:grid;grid-template-columns:minmax(0,280px) minmax(0,360px);align-items:center;justify-content:center;gap:40px 48px;margin-top:64px}
+.duo-custom .duo-frame img{width:112px}
+.duo-custom .duo-tag{font-size:22px}
+.duo-custom .duo-title{font-size:32px}
+.duo-custom .duo-sub{font-size:16px}
 .duo-card{display:flex;flex-direction:column;align-items:center;text-align:center;color:#3A2A22;text-decoration:none}
 .duo-frame{width:100%;aspect-ratio:1 / 1;border:1.5px dashed #C5B286;box-sizing:border-box;background:#E6EBF3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
 .duo-frame img{width:84px;height:auto}
@@ -117,6 +121,12 @@ header,section,footer,#contacts{scroll-margin-top:60px}
 .sticker-hide-sm{display:none}
 .ship{grid-column:1 / -1}
 .duo{grid-template-columns:1fr;gap:14px;margin-top:40px}
+.duo-custom{padding:16px}
+.duo-custom .duo-frame{width:132px}
+.duo-custom .duo-frame img{width:66px}
+.duo-custom .duo-tag{font-size:14px}
+.duo-custom .duo-title{font-size:25px}
+.duo-custom .duo-sub{font-size:15px}
 .duo-card{flex-direction:row;align-items:center;text-align:left;gap:16px;background:#FFFFFF;border:1px solid #DCE2EC;padding:12px}
 .duo-frame{width:104px;flex:none;gap:4px}
 .duo-frame img{width:52px}
