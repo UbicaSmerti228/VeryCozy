@@ -43,7 +43,7 @@
 
 ## Админка для Леси (без GitHub)
 
-Страница **`admin.html`** — `https://ubicasmerti228.github.io/Testleska/admin.html`.
+Страница **`admin.html`** — `https://ubicasmerti228.github.io/VeryCozy/admin.html`.
 Там список кружек: добавить новую с фото с телефона, изменить, отметить «продана», удалить, поменять порядок.
 Изменения уходят на сайт кнопкой «Опубликовать» (через 1–2 минуты видны на сайте).
 
@@ -51,10 +51,10 @@
 
 1. GitHub → аватар → **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**.
 2. Название: `Вэри Cozy админка`. Срок: 1 год (или сколько удобно).
-3. **Repository access → Only select repositories → Testleska.**
+3. **Repository access → Only select repositories → VeryCozy.**
 4. **Permissions → Repository permissions → Contents: Read and write.** Больше ничего не включать.
 5. **Generate token** и скопировать ключ (`github_pat_…`).
-6. Отправить Лесе ссылку: `https://ubicasmerti228.github.io/Testleska/admin.html#key=ВАШ_КЛЮЧ`
+6. Отправить Лесе ссылку: `https://ubicasmerti228.github.io/VeryCozy/admin.html#key=ВАШ_КЛЮЧ`
    Она открывает её один раз — телефон запоминает ключ, ссылку можно удалить из переписки.
 
 Ключ может менять только этот репозиторий. Если он куда-то утёк — удалите его на той же странице GitHub и сделайте новый.
