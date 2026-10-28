@@ -151,6 +151,8 @@
     var cur = priceEl.querySelector('span');
     priceEl.textContent = (sold ? 'продана' : rub(price) + ' ');
     if (!sold) priceEl.appendChild(cur);
+    priceEl.style.fontSize = sold ? '24px' : '';
+    priceEl.style.color = sold ? '#8A7263' : '';
 
     var buy = card.querySelector('[data-p="buy"]');
     buy.textContent = sold ? 'Хочу похожую' : 'Хочу эту кружку';
