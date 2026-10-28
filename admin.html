@@ -71,16 +71,6 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
 .toast{position:fixed;left:50%;width:max-content;bottom:calc(92px + env(safe-area-inset-bottom));z-index:40;transform:translate(-50%,16px);opacity:0;transition:opacity .25s,transform .25s;max-width:calc(100vw - 32px);padding:12px 18px;background:var(--ink);color:var(--bg);border-radius:2px;box-shadow:0 10px 30px rgba(58,42,34,.25);text-align:center;pointer-events:none}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .err{color:var(--red);font-size:15px;margin:10px 0 0}
-.howto{margin-top:18px;background:#FCFCFA;border:1.5px dashed var(--dash);padding:4px 16px}
-.howto summary{min-height:48px;display:flex;align-items:center;cursor:pointer;font-family:'Forum',Georgia,serif;font-size:18px;list-style:none}
-.howto summary::-webkit-details-marker{display:none}
-.howto summary::after{content:"＋";margin-left:auto;color:var(--gold)}
-.howto[open] summary::after{content:"−"}
-.howto ol{margin:0 0 8px;padding-left:22px}
-.howto li{margin:6px 0;font-size:16px}
-.howto p{margin:0 0 12px;font-size:15px;color:var(--ink2)}
-.howto a{color:#9C5B4B;text-underline-offset:3px}
-.howto code{font-size:14px;background:var(--bg);padding:1px 4px}
 .hide{display:none!important}
 @media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
@@ -103,17 +93,6 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
       <p id="loginErr" class="err hide"></p>
       <div style="margin-top:16px"><button id="loginBtn" class="btn dark wide" type="button">Войти</button></div>
     </div>
-    <details class="howto">
-      <summary>Где взять ключ?</summary>
-      <ol>
-        <li>Зайдите на <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">github.com → новый ключ</a> под аккаунтом, где лежит сайт.</li>
-        <li><b>Token name</b> — например «Вэри Cozy». <b>Expiration</b> — 1 год.</li>
-        <li><b>Repository access</b> → <b>Only select repositories</b> → выберите <b>Testleska</b>.</li>
-        <li><b>Permissions</b> → <b>Repository permissions</b> → <b>Contents</b> → <b>Read and write</b>. Больше ничего не включайте.</li>
-        <li>Нажмите <b>Generate token</b>, скопируйте ключ (начинается с <code>github_pat_</code>) и вставьте его сюда.</li>
-      </ol>
-      <p>Такой ключ может менять только этот сайт. Если он потерялся или устарел — удалите его там же и сделайте новый.</p>
-    </details>
   </section>
 
   <!-- Список -->
@@ -391,7 +370,7 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
       saved = clone(items); newPhotos = {}; removed = [];
       render(); toast('Готово! На сайте через 1–2 минуты');
     }).catch(function (e) {
-      $('barNote').textContent = e.message === 'key' || e.message === 'access' ? 'Ключ не подходит или устарел — сделайте новый (Выйти → «Где взять ключ?»)' : 'Не получилось — проверьте интернет и нажмите ещё раз';
+      $('barNote').textContent = e.message === 'key' || e.message === 'access' ? 'Ключ не подходит или устарел — попросите новый' : 'Не получилось — проверьте интернет и нажмите ещё раз';
     }).then(function () { b.disabled = false; });
   });
   $('logoutBtn').addEventListener('click', function () { store(KEY_STORE, null); key = null; show('main', false); show('bar', false); show('login', true); });
