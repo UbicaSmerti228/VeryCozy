@@ -64,6 +64,10 @@ header,section,footer,#contacts{scroll-margin-top:68px}
 .duo-sub{margin:8px 0 0;font-size:15px;line-height:1.5;color:#6B574B}
 .duo-link{text-decoration:underline;text-underline-offset:3px;color:#9C5B4B}
 a.duo-card:hover .duo-frame{border-color:#9C7A3C}
+.kiln{position:relative;overflow:hidden;justify-content:flex-end;padding-bottom:4%;background:#B65A3C url(assets/kiln.webp) center / cover no-repeat;border-style:solid;border-color:#8A3E2A}
+.duo-frame .kiln-glow{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;animation:kiln-flicker 2.6s ease-in-out infinite alternate}
+.kiln-tag{position:relative;color:#FBEFD9;text-shadow:0 1px 2px rgba(74,30,18,.6)}
+@keyframes kiln-flicker{0%{opacity:.35}30%{opacity:.8}55%{opacity:.5}80%{opacity:.95}100%{opacity:.6}}
 .sticker{position:absolute;pointer-events:none;user-select:none;height:auto}
 .btn{display:inline-flex;align-items:center;min-height:52px;padding:0 30px;font-family:'Forum',Georgia,serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .25s ease,box-shadow .25s ease}
 .btn:hover{opacity:.88}
@@ -117,6 +121,7 @@ header,section,footer,#contacts{scroll-margin-top:60px}
 .duo-frame{width:104px;flex:none;gap:4px}
 .duo-frame img{width:52px}
 .duo-tag{font-size:13px}
+.kiln-tag{display:none}
 .duo-text{align-items:flex-start}
 .duo-title{margin:0;font-size:22px}
 .duo-sub{margin-top:4px;font-size:14px;line-height:1.4}
