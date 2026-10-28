@@ -103,32 +103,111 @@
     }
   }
 
-  // Переключение фото кружки
-  var photos = [
-    { src: 'assets/mug-piercing-side.webp', alt: 'Кружка с пирсингом, вид сбоку' },
-    { src: 'assets/mug-piercing-top.webp', alt: 'Кружка с пирсингом, вид сверху: светлая глазурь в крапинку внутри' }
-  ];
-  var card = document.querySelector('#catalog article');
-  if (card) {
-    var main = null;
-    Array.prototype.forEach.call(card.querySelectorAll('img'), function (im) {
-      if (!main && !im.closest('button') && im.getAttribute('src') === photos[0].src) main = im;
+  // ---------- Кнопки Telegram: сообщение уже вписано ----------
+  var TG = 'https://t.me/dvdkna';
+  function tgLink(text) { return TG + '?text=' + encodeURIComponent(text); }
+  Array.prototype.forEach.call(document.querySelectorAll('a[data-msg]'), function (a) {
+    a.href = tgLink(a.getAttribute('data-msg'));
+  });
+
+  // ---------- Карточки кружек из products.json ----------
+  // Леся добавляет кружки в файл products.json — сайт сам строит карточку
+  // по образцу первой и вписывает в кнопку «Хочу …» название и цену.
+  var tpl = document.querySelector('[data-p="card"]');
+  var THUMB_ON = 'border: 2px solid #3A2A22; transform: translateY(-3px)';
+  var THUMB_OFF = 'border: 2px solid #D9CBB8; opacity: .8';
+  var THUMB_BASE = 'width: 58px; height: 103px; padding: 3px; box-sizing: border-box; border-radius: 2px; cursor: pointer; background: #F2F4F8; ';
+  var THUMB_TAIL = '; box-shadow: 0 4px 12px rgba(58,42,34,.12); transition: transform .2s ease';
+
+  function rub(n) {
+    var v = Number(String(n).replace(/[^\d]/g, ''));
+    return v ? v.toLocaleString('ru-RU').replace(/\s/g, ' ') : String(n);
+  }
+  function pick(o, keys) { for (var i = 0; i < keys.length; i++) if (o[keys[i]] != null) return o[keys[i]]; return null; }
+
+  function setupCard(card, item) {
+    var name = pick(item, ['название', 'name']) || 'Кружка';
+    var price = pick(item, ['цена', 'price']);
+    var details = pick(item, ['описание', 'details']) || [];
+    var photos = pick(item, ['фото', 'photos']) || [];
+    var sold = !!pick(item, ['продана', 'sold']);
+    photos = photos.map(function (p) {
+      return typeof p === 'string' ? { src: p, alt: name } : { src: pick(p, ['файл', 'src']), alt: pick(p, ['подпись', 'alt']) || name };
     });
-    var thumbs = card.querySelectorAll('button[aria-label]');
-    var on = 'border: 2px solid #3A2A22; transform: translateY(-3px)';
-    var offStyle = 'border: 2px solid #D9CBB8; opacity: .8';
-    var base = 'width: 58px; height: 103px; padding: 3px; box-sizing: border-box; border-radius: 2px; cursor: pointer; background: #F2F4F8; ';
-    var tail = '; box-shadow: 0 4px 12px rgba(58,42,34,.12); transition: transform .2s ease';
-    // заранее подгрузить второе фото, чтобы переключение было мгновенным
-    var pre = new Image(); pre.src = photos[1].src;
-    Array.prototype.forEach.call(thumbs, function (btn, i) {
-      btn.addEventListener('click', function () {
-        if (main) { main.src = photos[i].src; main.alt = photos[i].alt; }
-        Array.prototype.forEach.call(thumbs, function (b, j) {
-          b.setAttribute('aria-pressed', i === j ? 'true' : 'false');
-          b.setAttribute('style', base + (i === j ? on : offStyle) + tail);
+
+    var nameEl = card.querySelector('[data-p="name"]');
+    nameEl.textContent = name.replace(/ (с|и|в|на) /g, ' $1 ');
+
+    var det = card.querySelector('[data-p="details"]');
+    var dot = det.querySelector('span[aria-hidden]');
+    det.textContent = '';
+    if (typeof details === 'string') details = details.split(/\s*[,·]\s*/);
+    details.forEach(function (d, i) {
+      if (i) det.appendChild(dot.cloneNode(true));
+      det.appendChild(document.createTextNode(d));
+    });
+
+    var priceEl = card.querySelector('[data-p="price"]');
+    var cur = priceEl.querySelector('span');
+    priceEl.textContent = (sold ? 'продана' : rub(price) + ' ');
+    if (!sold) priceEl.appendChild(cur);
+
+    var buy = card.querySelector('[data-p="buy"]');
+    buy.textContent = sold ? 'Хочу похожую' : 'Хочу эту кружку';
+    buy.href = tgLink(sold
+      ? 'Здравствуйте! Хочу кружку, похожую на «' + name + '».'
+      : 'Здравствуйте! Хочу «' + name + '»' + (price ? ' за ' + rub(price).replace(/ /g, ' ') + ' ₽' : '') + '.');
+
+    var main = card.querySelector('[data-p="photo"]');
+    var thumbs = card.querySelector('[data-p="thumbs"]');
+    if (photos.length) { main.src = photos[0].src; main.alt = photos[0].alt; }
+    var proto = thumbs.querySelector('button');
+    thumbs.textContent = '';
+    if (photos.length < 2) { thumbs.style.display = 'none'; return; }
+    thumbs.style.display = '';
+    photos.forEach(function (ph, i) {
+      var b = proto.cloneNode(true);
+      b.setAttribute('aria-label', ph.alt);
+      b.querySelector('img').src = ph.src;
+      b.setAttribute('aria-pressed', i ? 'false' : 'true');
+      b.setAttribute('style', THUMB_BASE + (i ? THUMB_OFF : THUMB_ON) + THUMB_TAIL);
+      b.addEventListener('click', function () {
+        main.src = ph.src; main.alt = ph.alt;
+        Array.prototype.forEach.call(thumbs.children, function (o, j) {
+          o.setAttribute('aria-pressed', i === j ? 'true' : 'false');
+          o.setAttribute('style', THUMB_BASE + (i === j ? THUMB_ON : THUMB_OFF) + THUMB_TAIL);
         });
       });
+      thumbs.appendChild(b);
+      if (i) { var pre = new Image(); pre.src = ph.src; }
     });
+  }
+
+  if (tpl) {
+    // пока список грузится (или если он недоступен) — первая карточка уже рабочая
+    setupCard(tpl, {
+      'название': tpl.querySelector('[data-p="name"]').textContent.replace(/ /g, ' '),
+      'цена': tpl.querySelector('[data-p="price"]').textContent,
+      'описание': Array.prototype.filter.call(tpl.querySelector('[data-p="details"]').childNodes, function (n) { return n.nodeType === 3; }).map(function (n) { return n.textContent; }),
+      'фото': Array.prototype.map.call(tpl.querySelectorAll('[data-p="thumbs"] button'), function (b) { return { 'файл': b.querySelector('img').getAttribute('src'), 'подпись': b.getAttribute('aria-label') }; })
+    });
+    var blank = tpl.cloneNode(true);
+    fetch('products.json', { cache: 'no-cache' })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (list) {
+        if (!Array.isArray(list) || !list.length) return;
+        var after = tpl;
+        list.forEach(function (item, i) {
+          var card = i ? blank.cloneNode(true) : tpl;
+          if (i) {
+            card.style.marginTop = '40px';
+            card.querySelectorAll('.sticker').forEach(function (st) { st.remove(); });
+            after.parentNode.insertBefore(card, after.nextSibling);
+            after = card;
+          }
+          setupCard(card, item);
+        });
+      })
+      .catch(function () { /* оставляем карточку как есть */ });
   }
 })();
