@@ -72,6 +72,7 @@ a.duo-card:hover .duo-frame{border-color:#9C7A3C}
 .shelf-head{margin-bottom:40px}
 .shelf [data-p=card]+[data-p=card]{margin-top:40px!important}
 .duo-one{grid-template-columns:minmax(0,280px)}
+.duo.solo{grid-template-columns:minmax(0,360px)}
 .shelf [data-p=list]:empty+.duo-one{margin-top:0}
 .sticker{position:absolute;pointer-events:none;user-select:none;height:auto}
 .btn{display:inline-flex;align-items:center;min-height:52px;padding:0 30px;font-family:'Forum',Georgia,serif;font-size:17px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:transform .25s ease,box-shadow .25s ease}
@@ -122,7 +123,7 @@ header,section,footer,#contacts{scroll-margin-top:60px}
 .cloud-l{bottom:120px;opacity:.9}.cloud-r{bottom:60px;opacity:.9}
 .sticker-hide-sm{display:none}
 .ship{grid-column:1 / -1}
-.duo{grid-template-columns:1fr;gap:14px;margin-top:40px}
+.duo,.duo.solo{grid-template-columns:1fr;gap:14px;margin-top:40px}
 .duo-custom{padding:16px}
 .duo-custom .duo-frame{width:132px}
 .duo-custom .duo-frame img{width:66px}

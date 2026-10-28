@@ -217,7 +217,13 @@
         if (!Array.isArray(list)) return;
         // кружки — по образцу первой карточки, игрушки и обвесы — в свои разделы ниже
         var mugs = list.filter(function (it) { return shelfOf(it) === 'кружки'; });
-        if (list.length && !mugs.length) tpl.style.display = 'none';
+        if (!mugs.length) tpl.style.display = 'none';
+        // «Новая партия — ещё в печи» видно, только когда кружек в продаже нет
+        var soon = document.querySelector('[data-p="soon"]');
+        if (soon) {
+          soon.style.display = mugs.length ? 'none' : '';
+          soon.parentNode.classList.toggle('solo', !!mugs.length);
+        }
         var after = tpl;
         mugs.forEach(function (item, i) {
           var card = i ? blank.cloneNode(true) : tpl;
