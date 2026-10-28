@@ -219,11 +219,8 @@
         var mugs = list.filter(function (it) { return shelfOf(it) === 'кружки'; });
         if (!mugs.length) tpl.style.display = 'none';
         // «Новая партия — ещё в печи» видно, только когда кружек в продаже нет
-        var soon = document.querySelector('[data-p="soon"]');
-        if (soon) {
-          soon.style.display = mugs.length ? 'none' : '';
-          soon.parentNode.classList.toggle('solo', !!mugs.length);
-        }
+        var soon = document.querySelector('[data-p="soon-wrap"]');
+        if (soon) soon.style.display = mugs.length ? 'none' : '';
         var after = tpl;
         mugs.forEach(function (item, i) {
           var card = i ? blank.cloneNode(true) : tpl;
