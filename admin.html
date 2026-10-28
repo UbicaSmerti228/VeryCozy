@@ -150,7 +150,12 @@ input:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px}
 <script>
 (function () {
   'use strict';
-  var OWNER = 'UbicaSmerti228', REPO = 'Testleska', BRANCH = 'main', FILE = 'products.json';
+  // аккаунт и репозиторий берём из адреса (…github.io/<репозиторий>/admin.html),
+  // так админка не сломается, если репозиторий переименовать
+  var onPages = /\.github\.io$/.test(location.hostname);
+  var OWNER = onPages ? location.hostname.split('.')[0] : 'UbicaSmerti228';
+  var REPO = onPages && location.pathname.split('/')[1] && !/\.html$/.test(location.pathname.split('/')[1]) ? location.pathname.split('/')[1] : 'Testleska';
+  var BRANCH = 'main', FILE = 'products.json';
   var API = 'https://api.github.com/repos/' + OWNER + '/' + REPO;
   var RAW = 'https://raw.githubusercontent.com/' + OWNER + '/' + REPO + '/' + BRANCH + '/';
   var KEY_STORE = 'verycozy-admin-key';
